@@ -4,16 +4,18 @@ spring:
       path: /console4
       enabled: true
   datasource:
-    url: jdbc:h2:file:./db/site7;DATABASE_TO_UPPER=false
+    url: jdbc:h2:file:./db/site;DATABASE_TO_UPPER=false
     username: mazo
     password: test
   jpa:
     defer-datasource-initialization: true
-    show-sql: true
+#    show-sql: true
     hibernate:
       ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   sql:
     init:
-      mode: always
+      mode: never
       schema-locations: classpath:schema.sql
       data-locations: classpath:data.sql

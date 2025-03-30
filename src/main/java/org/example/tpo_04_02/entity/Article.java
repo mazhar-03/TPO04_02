@@ -11,11 +11,11 @@ public class Article {
 
     private String title;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
     private User author;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "blog_id")
     private Blog blog;
 
@@ -58,11 +58,7 @@ public class Article {
 
     @Override
     public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", user=" + author +
-                ", blog=" + blog +
-                '}';
+        return "Article{id=" + id + ", title='" + title + "', authorId=" + author.getId() + ", blogId=" + blog.getId() + "}";
     }
+
 }

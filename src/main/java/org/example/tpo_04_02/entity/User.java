@@ -13,13 +13,18 @@ public class User {
     private Long id;
     private String email;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Article> articles = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "User_Role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "manager", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "manager", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Blog managedBlog;
 
     public User() {
@@ -79,12 +84,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", articles=" + articles +
-                ", roles=" + roles +
-                ", blog=" + managedBlog +
-                '}';
+        return "User{id=" + id + ", email='" + email + "'}";
     }
 }

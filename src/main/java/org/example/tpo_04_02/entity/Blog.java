@@ -16,7 +16,7 @@ public class Blog {
 
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "manager_id")
     private User manager;
 
@@ -25,9 +25,8 @@ public class Blog {
 
     public Blog() {}
 
-    public Blog(String name, User manager) {
+    public Blog(String name) {
         this.name = name;
-        this.manager = manager;
     }
 
     public Long getId() {
@@ -65,9 +64,8 @@ public class Blog {
     public String toString() {
         return "Blog{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", manager=" + manager +
-                ", articles=" + articles +
+                ", name='" + name +
+                ", manager_id='" + manager.getId() +
                 '}';
     }
 }
